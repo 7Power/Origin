@@ -1,3 +1,8 @@
 ﻿{
-  "port": 30800
+  "DatabaseServerAddress": "127.0.0.1",
+  "DatabaseServerPort": 30820,
+
+  "LoginServerPort": 30800,
+
+  "WorldStatusUpdateDelay": 30
 }

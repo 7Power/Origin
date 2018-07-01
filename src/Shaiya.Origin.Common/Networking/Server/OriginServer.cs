@@ -14,12 +14,11 @@ namespace Shaiya.Origin.Common.Networking.Server
         private static Func<ServerSession, byte[], int, bool> _recieveFunction;
         private Action<ServerSession> _connectFunction;
         private Action<ServerSession> _terminateFunction;
-        public OriginServer(int port)
+        private IPAddress _ipAddress = Dns.GetHostEntry("localhost").AddressList[1];
+
+        public OriginServer()
         {
-            IPAddress ipAddress = Dns.GetHostEntry("localhost").AddressList[1];
-            IPEndPoint localEndPoint = new IPEndPoint(ipAddress, port);
-            _listener = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-            _listener.Bind(localEndPoint);
+            _listener = new Socket(_ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
         }
 
         /// <summary>
@@ -33,6 +32,8 @@ namespace Shaiya.Origin.Common.Networking.Server
             // Attempt to catch any exceptions thrown
             try
             {
+                IPEndPoint localEndPoint = new IPEndPoint(_ipAddress, port);
+                _listener.Bind(localEndPoint);
                 // Begin listening for incoming connections
                 _listener.Listen(100);
                 while (true)

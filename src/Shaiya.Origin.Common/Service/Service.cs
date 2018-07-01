@@ -10,7 +10,7 @@ namespace Shaiya.Origin.Common.Service
     /// </summary>
     public abstract class Service
     {
-        private JObject config;
+        private static JObject _config;
 
         /// <summary>
         /// Starts this <see cref="Service"/> instance, which should be overridden by each service
@@ -38,7 +38,7 @@ namespace Shaiya.Origin.Common.Service
             JObject json = JObject.Parse(configString);
 
             // Set the configuration instance
-            config = json;
+            _config = json;
 
             // Return a successfully parsed configuration file
             return true;
@@ -49,9 +49,20 @@ namespace Shaiya.Origin.Common.Service
         /// includes the parsed configuration instance
         /// </summary>
         /// <returns>The configuration instance></returns>
-        public JObject GetConfig()
+        public static JObject GetConfig()
         {
-            return config;
+            return _config;
+        }
+
+        /// <summary>
+        /// Gets a value of a specified key, or the default value
+        /// </summary>
+        /// <param name="key">The specified key</param>
+        /// <param name="defaultValue">The default value</param>
+        /// <returns>The value of the specified key, or the default value</returns>
+        public static JToken GetValueOrDefault(string key, JToken defaultValue)
+        {
+            return GetConfig().TryGetValue(key, out JToken value) ? value : defaultValue;
         }
     }
 }

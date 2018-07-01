@@ -1,4 +1,5 @@
-﻿using Shaiya.Origin.Common.Logging;
+﻿using Newtonsoft.Json.Linq;
+using Shaiya.Origin.Common.Logging;
 using Shaiya.Origin.Common.Networking.Client;
 using Shaiya.Origin.Common.Networking.Packets;
 using Shaiya.Origin.Common.Serializer;
@@ -20,14 +21,14 @@ namespace Shaiya.Origin.Login
 
         public override void Start()
         {
-            IPAddress ipadress = IPAddress.Parse("127.0.0.1");
-            const int port = 30820;
+            var dbServerAddress = GetValueOrDefault("DatabaseServerAddress", "127.0.0.1");
+            var dbServerPort = GetValueOrDefault("DatabaseServerPort", 30820);
 
             // The client instance
-            _dbClient = new OriginClient(30820);
+            _dbClient = new OriginClient(dbServerPort.Value<int>());
 
             // Connect to the db server
-            if (!_dbClient.Connect(ipadress, port))
+            if (!_dbClient.Connect(IPAddress.Parse(dbServerAddress.Value<string>()), dbServerPort.Value<int>()))
             {
                 Logger.Error("Failed to connect to database server!");
                 return;
@@ -40,15 +41,15 @@ namespace Shaiya.Origin.Login
 
             var socketServer = new SocketServer();
 
-            int serverPort = 30800;
+            var serverPort = GetValueOrDefault("LoginServerPort", 30800);
 
-            socketServer.Initialise(serverPort);
+            socketServer.Initialise(serverPort.Value<int>());
         }
 
         public void UpdateServerList()
         {
             // The server update delay
-            int updateDelay = 30;
+            var updateDelay = GetValueOrDefault("WorldStatsUpdateDelay", 30);
 
             // Loop and update the server list every 30s
             while (true)
@@ -79,7 +80,7 @@ namespace Shaiya.Origin.Login
                     }
                 });
 
-                Thread.Sleep(TimeSpan.FromSeconds(updateDelay));
+                Thread.Sleep(TimeSpan.FromSeconds(updateDelay.Value<int>()));
             }
         }
 

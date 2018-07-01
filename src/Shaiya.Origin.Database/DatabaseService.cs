@@ -1,4 +1,5 @@
-﻿using Shaiya.Origin.Common.Logging;
+﻿using Newtonsoft.Json.Linq;
+using Shaiya.Origin.Common.Logging;
 using Shaiya.Origin.Common.Service;
 using Shaiya.Origin.Database.Connector;
 using Shaiya.Origin.Database.Server;
@@ -21,9 +22,9 @@ namespace Shaiya.Origin.Database
 
             var socketServer = new SocketServer();
 
-            int serverPort = 30820;
+            var serverPort = GetValueOrDefault("DatabaseServerPort", 30820);
 
-            socketServer.Initialise(serverPort);
+            socketServer.Initialise(serverPort.Value<int>());
         }
     }
 }

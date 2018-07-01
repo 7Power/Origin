@@ -13,7 +13,7 @@ namespace Shaiya.Origin.Database.Server
         // Initialise the IoServer instance, and listen on a specified address and port
         public bool Initialise(int port)
         {
-            var server = new OriginServer(30820);
+            var server = new OriginServer();
 
             server.OnConnect(OnConnect);
             server.OnRecieve(OnRecieve);

@@ -15,7 +15,7 @@ namespace Shaiya.Origin.Login.Server
         // Initialise the SocketServer instance, and listen on a specified address and port
         public bool Initialise(int port)
         {
-            var server = new OriginServer(30800);
+            var server = new OriginServer();
 
             server.OnConnect(OnConnect);
             server.OnRecieve(OnRecieve);
