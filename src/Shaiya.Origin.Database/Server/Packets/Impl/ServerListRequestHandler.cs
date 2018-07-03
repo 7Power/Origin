@@ -9,7 +9,7 @@ namespace Shaiya.Origin.Database.Server.Packets.Impl
     public class ServerListRequestHandler : PacketHandler
     {
         /// <summary>
-        /// Handles a server list request from the authentication server
+        /// Handles a server list request from the login server
         /// </summary>
         /// <param name="session">The session instance</param>
         /// <param name="length">The length of the packet</param>

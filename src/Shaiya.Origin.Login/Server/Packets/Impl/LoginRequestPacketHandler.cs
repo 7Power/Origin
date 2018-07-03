@@ -1,4 +1,4 @@
-﻿using Shaiya.Origin.Common.Database.Structs.Auth;
+﻿using Shaiya.Origin.Common.Database.Structs.Login;
 using Shaiya.Origin.Common.Networking.Client;
 using Shaiya.Origin.Common.Networking.Packets;
 using Shaiya.Origin.Common.Networking.Server.Session;
@@ -38,18 +38,18 @@ namespace Shaiya.Origin.Login.Server.Packets.Impl
 
             var dbClient = new OriginClient(30820);
 
-            AuthRequest authRequest = new AuthRequest();
+            LoginRequest loginRequest = new LoginRequest();
 
             byte[] ipAddress = new byte[15];
             ipAddress = Encoding.UTF8.GetBytes(session.GetRemoteAdress());
 
-            authRequest.username = username;
-            authRequest.password = password;
-            authRequest.ipAddress = ipAddress;
+            loginRequest.username = username;
+            loginRequest.password = password;
+            loginRequest.ipAddress = ipAddress;
 
-            var bldr = new PacketBuilder(Common.Database.Opcodes.USER_AUTH_REQUEST);
+            var bldr = new PacketBuilder(Common.Database.Opcodes.USER_LOGIN_REQUEST);
 
-            var array = Serializer.Serialize(authRequest);
+            var array = Serializer.Serialize(loginRequest);
 
             bldr.WriteBytes(array, array.Length);
 
@@ -61,25 +61,25 @@ namespace Shaiya.Origin.Login.Server.Packets.Impl
 
             dbClient.Write(bldr.ToPacket(), (_data, _length) =>
             {
-                AuthResponse authResponse = new AuthResponse();
+                LoginResponse loginResponse = new LoginResponse();
 
-                authResponse = (AuthResponse)Serializer.Deserialize(_data, authResponse);
+                loginResponse = (LoginResponse)Serializer.Deserialize(_data, loginResponse);
 
                 var builder = new PacketBuilder(Common.Packets.Opcodes.LOGIN_REQUEST);
 
-                int status = authResponse.status;
+                int status = loginResponse.status;
 
                 builder.WriteInt(status);
 
                 if (status == 0)
                 {
-                    builder.WriteInt(authResponse.userId);
+                    builder.WriteInt(loginResponse.userId);
 
-                    builder.WriteInt(authResponse.privilegeLevel);
+                    builder.WriteInt(loginResponse.privilegeLevel);
 
-                    builder.WriteBytes(authResponse.identityKeys, 16);
+                    builder.WriteBytes(loginResponse.identityKeys, 16);
 
-                    session.SetIdentityKeys(authResponse.identityKeys);
+                    session.SetIdentityKeys(loginResponse.identityKeys);
 
                     current.HandleServerList(session);
                 }

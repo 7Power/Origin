@@ -1,5 +1,5 @@
 ﻿using Npgsql;
-using Shaiya.Origin.Common.Database.Structs.Auth;
+using Shaiya.Origin.Common.Database.Structs.Login;
 using Shaiya.Origin.Common.Logging;
 using Shaiya.Origin.Common.Networking.Packets;
 using Shaiya.Origin.Common.Networking.Server.Session;
@@ -9,18 +9,18 @@ using System.Text;
 
 namespace Shaiya.Origin.Database.Server.Packets.Impl
 {
-    public class UserAuthRequestHandler : PacketHandler
+    public class UserLoginRequestHandler : PacketHandler
     {
         public override bool Handle(ServerSession session, int length, int opcode, int requestId, byte[] data)
         {
-            AuthRequest authRequest = new AuthRequest();
+            LoginRequest loginRequest = new LoginRequest();
 
-            authRequest = (AuthRequest)Serializer.Deserialize(data, authRequest);
+            loginRequest = (LoginRequest)Serializer.Deserialize(data, loginRequest);
 
             // The username, password and ip address, as strings
-            string username = Encoding.UTF8.GetString(authRequest.username).TrimEnd('\0');
-            string password = Encoding.UTF8.GetString(authRequest.password).TrimEnd('\0');
-            string ipAddress = Encoding.UTF8.GetString(authRequest.ipAddress);
+            string username = Encoding.UTF8.GetString(loginRequest.username).TrimEnd('\0');
+            string password = Encoding.UTF8.GetString(loginRequest.password).TrimEnd('\0');
+            string ipAddress = Encoding.UTF8.GetString(loginRequest.ipAddress);
 
             Logger.Info("Revieved {0} bytes from the client!", data.Length);
 
@@ -44,7 +44,7 @@ namespace Shaiya.Origin.Database.Server.Packets.Impl
                 // Loop through the results
                 while (reader.Read())
                 {
-                    AuthResponse authResponse = new AuthResponse();
+                    LoginResponse loginResponse = new LoginResponse();
 
                     int userId = reader.GetInt32(0);
                     int status = reader.GetInt16(1);
@@ -52,11 +52,11 @@ namespace Shaiya.Origin.Database.Server.Packets.Impl
                     byte[] identityKeys = new byte[16];
                     var bytesRead = reader.GetBytes(3, 0, identityKeys, 0, 16);
 
-                    authResponse.userId = userId;
-                    authResponse.status = status;
-                    authResponse.privilegeLevel = privilegeLevel;
-                    authResponse.identityKeys = identityKeys;
-                    var array = Serializer.Serialize(authResponse);
+                    loginResponse.userId = userId;
+                    loginResponse.status = status;
+                    loginResponse.privilegeLevel = privilegeLevel;
+                    loginResponse.identityKeys = identityKeys;
+                    var array = Serializer.Serialize(loginResponse);
 
                     var bldr = new PacketBuilder(opcode);
 

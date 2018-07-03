@@ -1,12 +1,12 @@
 ﻿using ProtoBuf;
 
-namespace Shaiya.Origin.Common.Database.Structs.Auth
+namespace Shaiya.Origin.Common.Database.Structs.Login
 {
     /// <summary>
-    /// Represents an authentication request
+    /// Represents an login request
     /// </summary>
     [ProtoContract(SkipConstructor = true)]
-    public class AuthRequest
+    public class LoginRequest
     {
         [ProtoMember(1)]
         public byte[] username = new byte[18];

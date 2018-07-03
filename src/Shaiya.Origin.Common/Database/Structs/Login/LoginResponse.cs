@@ -1,18 +1,18 @@
 ﻿using ProtoBuf;
 
-namespace Shaiya.Origin.Common.Database.Structs.Auth
+namespace Shaiya.Origin.Common.Database.Structs.Login
 {
     /// <summary>
-    /// Represents the response to an <see cref="AuthRequest"/>
+    /// Represents the response to an <see cref="LoginRequest"/>
     /// </summary>
     [ProtoContract(SkipConstructor = true)]
-    public class AuthResponse
+    public class LoginResponse
     {
         // The user id
         [ProtoMember(1)]
         public int userId;
 
-        // The status of the user (result of authentication request, ie valid, banned, invalid password)
+        // The status of the user (result of login request, ie valid, banned, invalid password)
         [ProtoMember(2)]
         public int status;
 
