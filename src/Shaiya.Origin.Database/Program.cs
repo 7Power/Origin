@@ -6,7 +6,7 @@ namespace Shaiya.Origin.Database
     internal class Program
     {
         /// <summary>
-        /// The entry point for the Shaiya Origin Database Server. This is used to initialise the
+        /// The entry point for the Shaiya Origin Database server. This is used to initialise the
         /// <see cref="DatabaseService"/> instance.
         /// </summary>
         /// <param name="args">The command-line arguments</param>
