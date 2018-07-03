@@ -19,6 +19,7 @@ namespace Shaiya.Origin.Login.Server
 
             server.OnConnect(OnConnect);
             server.OnRecieve(OnRecieve);
+            server.OnTerminate(OnTerminate);
 
             return server.Bind(port);
         }
