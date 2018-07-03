@@ -1,6 +1,6 @@
 ﻿using ProtoBuf;
 
-namespace Shaiya.Origin.Common.Database.Structs.Auth
+namespace Shaiya.Origin.Common.Database.Structs.Game
 {
     /// <summary>
     /// Represents a server instance

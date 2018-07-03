@@ -15,7 +15,7 @@ namespace Shaiya.Origin.Login
     public class LoginService : Service
     {
         private OriginClient _dbClient;
-        private static List<Common.Database.Structs.Auth.Server> _servers = new List<Common.Database.Structs.Auth.Server>();
+        private static List<Common.Database.Structs.Game.Server> _servers = new List<Common.Database.Structs.Game.Server>();
 
         private static readonly object _syncObject = new object();
 
@@ -71,9 +71,9 @@ namespace Shaiya.Origin.Login
 
                         for (int i = 0; i < serverCount; i++)
                         {
-                            Common.Database.Structs.Auth.Server server = new Common.Database.Structs.Auth.Server();
+                            Common.Database.Structs.Game.Server server = new Common.Database.Structs.Game.Server();
 
-                            server = (Common.Database.Structs.Auth.Server)Serializer.Deserialize(data, server);
+                            server = (Common.Database.Structs.Game.Server)Serializer.Deserialize(data, server);
 
                             _servers.Add(server);
                         }
@@ -84,7 +84,7 @@ namespace Shaiya.Origin.Login
             }
         }
 
-        public static List<Common.Database.Structs.Auth.Server> GetServers()
+        public static List<Common.Database.Structs.Game.Server> GetServers()
         {
             return _servers;
         }

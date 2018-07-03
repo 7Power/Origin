@@ -34,7 +34,7 @@ namespace Shaiya.Origin.Login.Server.Packets.Impl
             {
                 var servers = LoginService.GetServers();
 
-                Common.Database.Structs.Auth.Server foundServer = new Common.Database.Structs.Auth.Server();
+                Common.Database.Structs.Game.Server foundServer = new Common.Database.Structs.Game.Server();
 
                 // Loop through the servers
                 foreach (var server in servers)

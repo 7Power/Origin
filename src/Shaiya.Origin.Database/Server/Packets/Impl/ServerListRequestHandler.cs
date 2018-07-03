@@ -42,7 +42,7 @@ namespace Shaiya.Origin.Database.Server.Packets.Impl
                 // Loop through the results
                 while (reader.Read())
                 {
-                    Common.Database.Structs.Auth.Server server = new Common.Database.Structs.Auth.Server();
+                    Common.Database.Structs.Game.Server server = new Common.Database.Structs.Game.Server();
 
                     server.serverId = reader.GetInt16(0);
                     server.serverName = reader.GetString(1);
