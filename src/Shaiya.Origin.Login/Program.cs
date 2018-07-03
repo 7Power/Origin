@@ -6,7 +6,7 @@ namespace Shaiya.Origin.Login
     internal class Program
     {
         /// <summary>
-        /// The entry point for the Shaiya Origin Login Server. This is used to initialise the
+        /// The entry point for the Shaiya Origin Login server. This is used to initialise the
         /// <see cref="LoginService"/> instance.
         /// </summary>
         /// <param name="args">The command-line arguments</param>

@@ -9,6 +9,10 @@ namespace Shaiya.Origin.Login.Server.Packets
         private Dictionary<int, PacketHandler> _handlers = new Dictionary<int, PacketHandler>();
         private PacketHandler _handler;
 
+        /// <summary>
+        /// The <see cref="PacketManager"/> constructor, which is used to pre-define the packet handlers
+        /// for the opcodes used by the Shaiya Origin login server.
+        /// </summary>
         public PacketManager()
         {
             // The default packet handler
@@ -18,6 +22,7 @@ namespace Shaiya.Origin.Login.Server.Packets
             _handlers[Opcodes.LOGIN_TERMINATE] = new ConnectionTerminatedPacketHandler();
             _handlers[Opcodes.LOGIN_HANDSHAKE] = new HandshakePacketHandler();
             _handlers[Opcodes.LOGIN_REQUEST] = new LoginRequestPacketHandler();
+            _handlers[Opcodes.SELECT_GAME_SERVER] = new ServerSelectPacketHandler();
         }
 
         /// <summary>

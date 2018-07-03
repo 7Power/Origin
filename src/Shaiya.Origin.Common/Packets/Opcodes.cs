@@ -34,5 +34,13 @@
         /// the server names, and the server status/population.
         /// </summary>
         public const int SERVER_LIST_DETAILS = 0xA201;
+
+        /// <summary>
+        /// Sent by the client when selecting the game server. The client sends the server id
+        /// it wishes to connect to, as well as the client version. If the client version matches
+        /// that of the server, the packet contains the ip address of the game server that the client
+        /// should attempt to connect to.
+        /// </summary>
+        public const int SELECT_GAME_SERVER = 0xA202;
     }
 }
