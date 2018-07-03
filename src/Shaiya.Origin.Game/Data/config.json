@@ -1,0 +1,7 @@
+﻿{
+  "DatabaseServerAddress": "127.0.0.1",
+  "DatabaseServerPort": 30820,
+
+  "GameServerId":  1,
+  "GameServerPort": 30810
+}
