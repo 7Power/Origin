@@ -87,23 +87,30 @@ namespace Shaiya.Origin.Common.Networking.Server
             // Retrive the session from the asynchronous session
             ServerSession session = (ServerSession)ar.AsyncState;
 
-            // Read data from the client socket
-            int bytesRead = session.GetSocket().EndReceive(ar);
+            try
+            {
+                // Read data from the client socket
+                int bytesRead = session.GetSocket().EndReceive(ar);
 
-            if (bytesRead == 0)
+                if (bytesRead == 0)
+                {
+                    _terminateFunction(session);
+                }
+
+                if (bytesRead > 0)
+                {
+                    // Pass the data to the recieve function
+                    if (_recieveFunction(session, session.data, bytesRead))
+                    {
+                        // Begin reading incoming packets
+                        session.GetSocket().BeginReceive(session.data, 0, ServerSession.dataSize, 0,
+                            new AsyncCallback(HandleRead), session);
+                    }
+                }
+            }
+            catch (Exception)
             {
                 _terminateFunction(session);
-            }
-
-            if (bytesRead > 0)
-            {
-                // Pass the data to the recieve function
-                if (_recieveFunction(session, session.data, bytesRead))
-                {
-                    // Begin reading incoming packets
-                    session.GetSocket().BeginReceive(session.data, 0, ServerSession.dataSize, 0,
-                        new AsyncCallback(HandleRead), session);
-                }
             }
         }
 
