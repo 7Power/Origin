@@ -40,13 +40,10 @@ namespace Shaiya.Origin.Game.Server
         {
             int packetLength = ((data[0] & 0xFF) + ((data[1] & 0xFF) << 8));
             int packetOpcode = ((data[2] & 0xFF) + ((data[3] & 0xFF) << 8));
-            // The request id
-            byte[] temp = new byte[2048];
 
-            Array.Copy(data, 4, temp, 0, data.Length - 4);
+            byte[] packetData = new byte[packetLength - 4];
 
-            // Trim the packet from ending 0's
-            var packetData = Trim(temp);
+            Array.Copy(data, 4, packetData, 0, packetLength - 4);
 
             var handler = _packetManager.GetHandler(packetOpcode);
 
@@ -71,18 +68,6 @@ namespace Shaiya.Origin.Game.Server
         /// <param name="session">The connection's session</param>
         private void OnTerminate(ServerSession session)
         {
-        }
-
-        public byte[] Trim(byte[] packet)
-        {
-            var i = packet.Length - 1;
-            while (packet[i] == 0)
-            {
-                --i;
-            }
-            var temp = new byte[i + 1];
-            Array.Copy(packet, temp, i + 1);
-            return temp;
         }
     }
 }

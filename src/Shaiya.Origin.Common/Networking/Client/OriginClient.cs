@@ -117,13 +117,9 @@ namespace Shaiya.Origin.Common.Networking.Client
             // The request id
             int requestId = ((data[4] & 0xFF) + ((data[5] & 0xFF) << 8) + ((data[6] & 0xFF) << 16) + ((data[7] & 0xFF) << 24));
 
-            byte[] temp = new byte[2048];
+            byte[] packetData = new byte[packetLength - 8];
 
-            // Copy the packet data
-            Array.Copy(data, 8, temp, 0, data.Length - 8);
-
-            // Trim the packet from ending 0's
-            var packetData = Trim(temp);
+            Array.Copy(data, 8, packetData, 0, packetLength - 8);
 
             lock (_syncObject)
             {
@@ -143,18 +139,6 @@ namespace Shaiya.Origin.Common.Networking.Client
 
             // Begin reading some data
             _socket.BeginReceive(data, 0, data.Length, 0, new AsyncCallback(HandleRead), _socket);
-        }
-
-        public byte[] Trim(byte[] packet)
-        {
-            var i = packet.Length - 1;
-            while (packet[i] == 0)
-            {
-                --i;
-            }
-            var temp = new byte[i + 1];
-            Array.Copy(packet, temp, i + 1);
-            return temp;
         }
 
         /// <summary>

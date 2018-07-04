@@ -60,12 +60,9 @@ namespace Shaiya.Origin.Database.Server
             // The request id
             int requestId = ((data[4] & 0xFF) + ((data[5] & 0xFF) << 8) + ((data[6] & 0xFF) << 16) + ((data[7] & 0xFF) << 24));
 
-            byte[] temp = new byte[2048];
+            byte[] packetData = new byte[packetLength - 8];
 
-            Array.Copy(data, 8, temp, 0, data.Length - 8);
-
-            // Trim the packet from ending 0's
-            var packetData = Trim(temp);
+            Array.Copy(data, 8, packetData, 0, packetLength - 8);
 
             var handler = _packetManager.GetHandler(packetOpcode);
 
@@ -90,18 +87,6 @@ namespace Shaiya.Origin.Database.Server
         /// <param name="session">The connection's session</param>
         private void OnTerminate(ServerSession session)
         {
-        }
-
-        public byte[] Trim(byte[] packet)
-        {
-            var i = packet.Length - 1;
-            while (packet[i] == 0)
-            {
-                --i;
-            }
-            var temp = new byte[i + 1];
-            Array.Copy(packet, temp, i + 1);
-            return temp;
         }
     }
 }

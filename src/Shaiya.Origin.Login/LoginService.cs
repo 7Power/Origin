@@ -56,8 +56,6 @@ namespace Shaiya.Origin.Login
             {
                 var bldr = new PacketBuilder(Common.Database.Opcodes.SERVER_LIST);
 
-                bldr.WriteByte(1);
-
                 _dbClient.Write(bldr.ToPacket(), (_data, _length) =>
                 {
                     int serverCount = _data[0] & 0xFF;
