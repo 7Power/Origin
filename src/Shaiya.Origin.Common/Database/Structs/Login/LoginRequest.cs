@@ -3,7 +3,7 @@
 namespace Shaiya.Origin.Common.Database.Structs.Login
 {
     /// <summary>
-    /// Represents an login request
+    /// Represents a login request
     /// </summary>
     [ProtoContract(SkipConstructor = true)]
     public class LoginRequest

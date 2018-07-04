@@ -69,13 +69,13 @@ namespace Shaiya.Origin.Login.Server.Packets.Impl
 
                 int status = loginResponse.status;
 
-                builder.WriteInt(status);
+                builder.WriteByte((byte)status);
 
                 if (status == 0)
                 {
                     builder.WriteInt(loginResponse.userId);
 
-                    builder.WriteInt(loginResponse.privilegeLevel);
+                    builder.WriteByte((byte)loginResponse.privilegeLevel);
 
                     builder.WriteBytes(loginResponse.identityKeys, 16);
 
