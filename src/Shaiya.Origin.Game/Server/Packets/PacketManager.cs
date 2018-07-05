@@ -1,4 +1,4 @@
-﻿using Shaiya.Origin.Common.Database;
+﻿using Shaiya.Origin.Common.Packets;
 using Shaiya.Origin.Game.Server.Packets.Impl;
 using System.Collections.Generic;
 
@@ -15,6 +15,7 @@ namespace Shaiya.Origin.Game.Server.Packets
             _handlers[0] = new DefaultPacketHandler();
 
             // Define the database server packet handlers
+            _handlers[Opcodes.GAME_HANDSHAKE] = new GameHandshakePacketHandler();
         }
 
         /// <summary>

@@ -42,5 +42,11 @@
         /// should attempt to connect to.
         /// </summary>
         public const int SELECT_GAME_SERVER = 0xA202;
+
+        /// <summary>
+        /// The game handshake request sent by the client, which should contain the previously assigned
+        /// user id and session identity keys from the login request.
+        /// </summary>
+        public const int GAME_HANDSHAKE = 0xA301;
     }
 }

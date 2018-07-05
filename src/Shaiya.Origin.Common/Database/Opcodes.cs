@@ -26,5 +26,12 @@
         /// database server that a session should be deleted
         /// </summary>
         public const int DELETE_SESSION = 3;
+
+        /// <summary>
+        /// Represents a packet sent from the game server, informing the database
+        /// server that a user has connected to the game server, and that it should
+        /// verify the session.
+        /// </summary>
+        public const int USER_GAME_CONNECT = 4;
     }
 }
