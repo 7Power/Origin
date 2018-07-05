@@ -81,7 +81,7 @@ namespace Shaiya.Origin.Common.Logging
         /// <param name="format">The specified format</param>
         /// <param name="arg">The object to pass in</param>
         /// <returns></returns>
-        public static void Error(string format, object arg)
+        public static void Error(string format, params object[] arg)
         {
             lock (_syncObject)
             {
@@ -138,7 +138,7 @@ namespace Shaiya.Origin.Common.Logging
         /// <param name="format">The specified format</param>
         /// <param name="arg">The object to pass in</param>
         /// <returns></returns>
-        public static void Info(string format, object arg)
+        public static void Info(string format, params object[] arg)
         {
             lock (_syncObject)
             {
