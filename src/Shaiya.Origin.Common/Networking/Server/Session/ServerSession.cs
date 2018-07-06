@@ -125,5 +125,22 @@ namespace Shaiya.Origin.Common.Networking.Server.Session
         {
             return data;
         }
+
+        /// <summary>
+        /// Sets the game player index for this session
+        /// </summary>
+        /// <param name="index">The index</param>
+        public void SetGameIndex(int index)
+        {
+            _index = index;
+        }
+
+        /// <summary>
+        /// Gets the index of the game player
+        /// </summary>
+        public int GetGameIndex()
+        {
+            return _index;
+        }
     }
 }
