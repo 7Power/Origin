@@ -3,17 +3,20 @@ using Shaiya.Origin.Common.Logging;
 using Shaiya.Origin.Common.Networking.Client;
 using Shaiya.Origin.Common.Service;
 using Shaiya.Origin.Game.Server;
+using Shaiya.Origin.Game.World.Pulse;
+using Shaiya.Origin.Game.World.Pulse.Task;
 using System.Net;
 
 namespace Shaiya.Origin.Game
 {
     /// <summary>
-    /// The game service, which is used to handle to game world, networking, and
+    /// The game service, which is used to handle the game world, networking, and
     /// scripting environment.
     /// </summary>
     public class GameService : Service
     {
         private OriginClient _dbClient;
+        private static GamePulseHandler _pulseHandler;
         private int _serverId;
 
         public override void Start()
@@ -37,11 +40,20 @@ namespace Shaiya.Origin.Game
 
             Logger.Info("Successfully connected to the database server!");
 
+            _pulseHandler = new GamePulseHandler();
+
+            _pulseHandler.Start();
+
             var socketServer = new SocketServer();
 
             var serverPort = GetValueOrDefault("GameServerPort", 30810);
 
             socketServer.Initialise(serverPort.Value<int>());
+        }
+
+        public static void PushTask(Task task)
+        {
+            _pulseHandler.Offer(task);
         }
     }
 }
