@@ -3,6 +3,7 @@ using Shaiya.Origin.Common.Networking.Packets;
 using Shaiya.Origin.Common.Networking.Server.Session;
 using Shaiya.Origin.Common.Serializer;
 using Shaiya.Origin.Database.Connector;
+using System;
 
 namespace Shaiya.Origin.Database.Server.Packets.Impl
 {
@@ -32,7 +33,7 @@ namespace Shaiya.Origin.Database.Server.Packets.Impl
 
                 rowCmd.Prepare();
 
-                int rowCount = (int)cmd.ExecuteScalar();
+                int rowCount = Convert.ToInt32(rowCmd.ExecuteScalar());
 
                 // Execute the prepared statement
                 var reader = cmd.ExecuteReader();
