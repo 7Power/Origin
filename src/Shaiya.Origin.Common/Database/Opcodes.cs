@@ -39,5 +39,10 @@
         /// of a game account to be loaded from the database, and sent to the game server.
         /// </summary>
         public const int GAME_USER_LOAD = 5;
+
+        /// <summary>
+        /// Gets the data displayed by the character list for a player.
+        /// </summary>
+        public const int GET_CHARACTER_LIST_DATA = 6;
     }
 }

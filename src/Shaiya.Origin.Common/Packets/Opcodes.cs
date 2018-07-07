@@ -50,6 +50,11 @@
         public const int GAME_HANDSHAKE = 0xA301;
 
         /// <summary>
+        /// Contains information about the various characters for the character selection list.
+        /// </summary>
+        public const int CHARACTER_LIST = 0x0101;
+
+        /// <summary>
         /// Contains the current faction of the game account (either Light, Fury, or undecided).
         /// </summary>
         public const int ACCOUNT_FACTION = 0x0109;
