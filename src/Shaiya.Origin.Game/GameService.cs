@@ -6,6 +6,8 @@ using Shaiya.Origin.Game.Server;
 using Shaiya.Origin.Game.World.Pulse;
 using Shaiya.Origin.Game.World.Pulse.Task;
 using System.Net;
+using System.Collections.Generic;
+using Shaiya.Origin.Game.Model.Entity.Player;
 
 namespace Shaiya.Origin.Game
 {
@@ -18,6 +20,7 @@ namespace Shaiya.Origin.Game
         private OriginClient _dbClient;
         private static GamePulseHandler _pulseHandler;
         private static int _serverId;
+        private static Dictionary<int, Player> _players = new Dictionary<int, Player>();
 
         public override void Start()
         {
@@ -55,11 +58,23 @@ namespace Shaiya.Origin.Game
         /// Attempts to load the player into the game world.
         /// </summary>
         /// <param name="player">The player instance</param>
-        public static void LoadPlayer(Model.Entity.Player.Player player)
+        public static void LoadPlayer(Player player)
         {
+            // Add the player instance
+            _players.Add(player.GetIndex(), player);
+
             _pulseHandler.Offer(new World.Pulse.Task.Impl.LoadPlayerTask(player));
         }
 
+        /// <summary>
+        /// Gets the player instance for an index
+        /// </summary>
+        /// <param name="index">The index</param>
+        /// <returns>The player instance</returns>
+        public static Player GetPlayerForIndex(int index)
+        {
+            return _players[index];
+        }
         public static int GetServerId()
         {
             return _serverId;
