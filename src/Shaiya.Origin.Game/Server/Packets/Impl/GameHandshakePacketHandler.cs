@@ -56,6 +56,10 @@ namespace Shaiya.Origin.Game.Server.Packets.Impl
                 if (result == 0)
                 {
                     Logger.Info("Accepted successful handshake from address: {0}, with the user id of {1}", session.GetRemoteAdress(), handshake.userId.ToString());
+
+                    var player = new Model.Entity.Player.Player(handshake.userId, session);
+
+                    GameService.LoadPlayer(player);
                 }
 
                 session.Write(builder.ToPacket());

@@ -33,5 +33,11 @@
         /// verify the session.
         /// </summary>
         public const int USER_GAME_CONNECT = 4;
+
+        /// <summary>
+        /// Represents a packet sent from the game server, requesting the details
+        /// of a game account to be loaded from the database, and sent to the game server.
+        /// </summary>
+        public const int GAME_USER_LOAD = 5;
     }
 }

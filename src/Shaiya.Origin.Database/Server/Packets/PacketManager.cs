@@ -19,6 +19,7 @@ namespace Shaiya.Origin.Database.Server.Packets
             _handlers[Opcodes.DELETE_SESSION] = new DeleteSessionRequestHandler();
             _handlers[Opcodes.SERVER_LIST] = new ServerListRequestHandler();
             _handlers[Opcodes.USER_GAME_CONNECT] = new UserGameConnectRequestHandler();
+            _handlers[Opcodes.GAME_USER_LOAD] = new GameUserLoadRequestHandler();
         }
 
         /// <summary>

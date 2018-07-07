@@ -17,7 +17,7 @@ namespace Shaiya.Origin.Game
     {
         private OriginClient _dbClient;
         private static GamePulseHandler _pulseHandler;
-        private int _serverId;
+        private static int _serverId;
 
         public override void Start()
         {
@@ -49,6 +49,20 @@ namespace Shaiya.Origin.Game
             var serverPort = GetValueOrDefault("GameServerPort", 30810);
 
             socketServer.Initialise(serverPort.Value<int>());
+        }
+
+        /// <summary>
+        /// Attempts to load the player into the game world.
+        /// </summary>
+        /// <param name="player">The player instance</param>
+        public static void LoadPlayer(Model.Entity.Player.Player player)
+        {
+            _pulseHandler.Offer(new World.Pulse.Task.Impl.LoadPlayerTask(player));
+        }
+
+        public static int GetServerId()
+        {
+            return _serverId;
         }
 
         public static void PushTask(Task task)
