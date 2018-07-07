@@ -16,6 +16,7 @@ namespace Shaiya.Origin.Game.Server.Packets
 
             // Define the database server packet handlers
             _handlers[Opcodes.GAME_HANDSHAKE] = new GameHandshakePacketHandler();
+            _handlers[Opcodes.AVAILABLE_CHARACTER_NAME] = new CheckAvailableNamePacketHandler();
         }
 
         /// <summary>

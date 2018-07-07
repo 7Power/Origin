@@ -58,5 +58,10 @@
         /// Contains the current faction of the game account (either Light, Fury, or undecided).
         /// </summary>
         public const int ACCOUNT_FACTION = 0x0109;
+
+        /// <summary>
+        /// Checks if a given character name is available
+        /// </summary>
+        public const int AVAILABLE_CHARACTER_NAME = 0x0119;
     }
 }

@@ -21,6 +21,7 @@ namespace Shaiya.Origin.Database.Server.Packets
             _handlers[Opcodes.USER_GAME_CONNECT] = new UserGameConnectRequestHandler();
             _handlers[Opcodes.GAME_USER_LOAD] = new GameUserLoadRequestHandler();
             _handlers[Opcodes.GET_CHARACTER_LIST_DATA] = new CharacterScreenDataRequestHandler();
+            _handlers[Opcodes.CHECK_AVAILABLE_NAME] = new CheckAvailableNameRequestHandler();
         }
 
         /// <summary>

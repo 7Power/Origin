@@ -44,5 +44,10 @@
         /// Gets the data displayed by the character list for a player.
         /// </summary>
         public const int GET_CHARACTER_LIST_DATA = 6;
+
+        /// <summary>
+        /// Checks if a character name is available.
+        /// </summary>
+        public const int CHECK_AVAILABLE_NAME = 7;
     }
 }
