@@ -51,7 +51,8 @@ namespace Shaiya.Origin.Game.World.Pulse.Task.Impl
                 localPlayer.SetPrivilegeLevel(response.privilegeLevel);
                 localPlayer.SetPoints(response.points);
 
-                // TODO: Send the player's faction and character list
+                // TODO: Send the player's character list
+                GameService.PushTask(new SendPlayerFactionTask(localPlayer));
             });
         }
     }

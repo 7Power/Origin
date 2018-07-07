@@ -48,5 +48,10 @@
         /// user id and session identity keys from the login request.
         /// </summary>
         public const int GAME_HANDSHAKE = 0xA301;
+
+        /// <summary>
+        /// Contains the current faction of the game account (either Light, Fury, or undecided).
+        /// </summary>
+        public const int ACCOUNT_FACTION = 0x0109;
     }
 }
