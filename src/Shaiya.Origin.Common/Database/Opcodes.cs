@@ -49,5 +49,10 @@
         /// Checks if a character name is available.
         /// </summary>
         public const int CHECK_AVAILABLE_NAME = 7;
+
+        /// <summary>
+        /// Handles the selection of a faction for the player
+        /// </summary>
+        public const int SELECT_FACTION = 8;
     }
 }
