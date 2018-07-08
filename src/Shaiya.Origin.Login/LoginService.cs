@@ -14,7 +14,7 @@ namespace Shaiya.Origin.Login
 {
     public class LoginService : Service
     {
-        private OriginClient _dbClient;
+        private static OriginClient _dbClient;
         private static List<Common.Database.Structs.Game.Server> _servers = new List<Common.Database.Structs.Game.Server>();
 
         private static readonly object _syncObject = new object();
@@ -25,10 +25,10 @@ namespace Shaiya.Origin.Login
             var dbServerPort = GetValueOrDefault("DatabaseServerPort", 30820);
 
             // The client instance
-            _dbClient = new OriginClient(dbServerPort.Value<int>());
+            _dbClient = new OriginClient(IPAddress.Parse(dbServerAddress.Value<string>()),dbServerPort.Value<int>());
 
             // Connect to the db server
-            if (!_dbClient.Connect(IPAddress.Parse(dbServerAddress.Value<string>()), dbServerPort.Value<int>()))
+            if (!_dbClient.Connect())
             {
                 Logger.Error("Failed to connect to database server!");
                 return;
@@ -87,7 +87,7 @@ namespace Shaiya.Origin.Login
             return _servers;
         }
 
-        public OriginClient GetDbClient()
+        public static OriginClient GetDbClient()
         {
             return _dbClient;
         }

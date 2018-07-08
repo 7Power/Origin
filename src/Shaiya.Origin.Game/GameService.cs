@@ -17,7 +17,7 @@ namespace Shaiya.Origin.Game
     /// </summary>
     public class GameService : Service
     {
-        private OriginClient _dbClient;
+        private static OriginClient _dbClient;
         private static GamePulseHandler _pulseHandler;
         private static int _serverId;
         private static Dictionary<int, Player> _players = new Dictionary<int, Player>();
@@ -32,10 +32,10 @@ namespace Shaiya.Origin.Game
             var dbServerPort = GetValueOrDefault("DatabaseServerPort", 30820);
 
             // The client instance
-            _dbClient = new OriginClient(dbServerPort.Value<int>());
+            _dbClient = new OriginClient(IPAddress.Parse(dbServerAddress.Value<string>()), dbServerPort.Value<int>());
 
             // Connect to the db server
-            if (!_dbClient.Connect(IPAddress.Parse(dbServerAddress.Value<string>()), dbServerPort.Value<int>()))
+            if (!_dbClient.Connect())
             {
                 Logger.Error("Failed to connect to database server!");
                 return;
@@ -83,6 +83,11 @@ namespace Shaiya.Origin.Game
         public static void PushTask(Task task)
         {
             _pulseHandler.Offer(task);
+        }
+
+        public static OriginClient GetDbClient()
+        {
+            return _dbClient;
         }
     }
 }

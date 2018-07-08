@@ -36,7 +36,7 @@ namespace Shaiya.Origin.Login.Server.Packets.Impl
             Array.Copy(data, 0, username, 0, 18);
             Array.Copy(data, 32, password, 0, 16);
 
-            var dbClient = new OriginClient(30820);
+            var dbClient = LoginService.GetDbClient();
 
             LoginRequest loginRequest = new LoginRequest();
 
@@ -52,12 +52,6 @@ namespace Shaiya.Origin.Login.Server.Packets.Impl
             var array = Serializer.Serialize(loginRequest);
 
             bldr.WriteBytes(array, array.Length);
-
-            var current = this;
-
-            IPAddress ipadress = IPAddress.Parse("127.0.0.1");
-
-            dbClient.Connect(ipadress, 30820);
 
             dbClient.Write(bldr.ToPacket(), (_data, _length) =>
             {
@@ -81,7 +75,7 @@ namespace Shaiya.Origin.Login.Server.Packets.Impl
 
                     session.SetIdentityKeys(loginResponse.identityKeys);
 
-                    current.HandleServerList(session);
+                    HandleServerList(session);
                 }
 
                 session.Write(builder.ToPacket());

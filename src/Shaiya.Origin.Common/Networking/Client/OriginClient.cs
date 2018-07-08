@@ -25,44 +25,41 @@ namespace Shaiya.Origin.Common.Networking.Client
 
         private static readonly object _syncObject = new object();
 
+        private IPAddress _ipAddress;
+        private int _port;
+
         // ManualResetEvent instances signal completion.
-        private static ManualResetEvent connectDone =
-            new ManualResetEvent(false);
 
         private static ManualResetEvent sendDone =
             new ManualResetEvent(false);
 
-        private static ManualResetEvent receiveDone =
-            new ManualResetEvent(false);
-
-        public OriginClient(int port)
+        public OriginClient(IPAddress ipAddress, int port)
         {
-            IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
-            IPAddress ipAddress = Dns.GetHostEntry("localhost").AddressList[1];
+            _ipAddress = ipAddress;
+            _port = port;
 
             // Create a TCP/IP socket.
-            _socket = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+            _socket = new Socket(_ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
         }
 
-        public bool Connect(IPAddress address, int port)
+        public bool Connect()
         {
-            IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
-            IPAddress ipAddress = Dns.GetHostEntry("localhost").AddressList[1];
-            IPEndPoint remoteEP = new IPEndPoint(ipAddress, 30820);
+            IPEndPoint remoteEP = new IPEndPoint(_ipAddress, _port);
 
             // Attempt to catch any exceptions thrown
             try
             {
                 // Connect to the server
-                _socket.BeginConnect(remoteEP,
-                    new AsyncCallback(ConnectCallback), _socket);
-                connectDone.WaitOne();
+                _socket.Connect(remoteEP);
 
                 // The callback processing thread
                 Thread callbackProcess = new Thread(new ThreadStart(ProcessCallbacks));
 
                 // Start the thread
                 callbackProcess.Start();
+
+                // Begin reading some data
+                _socket.BeginReceive(data, 0, data.Length, 0, new AsyncCallback(HandleRead), _socket);
 
                 // Return if the socket is connected
                 return _socket.Connected;
@@ -72,31 +69,6 @@ namespace Shaiya.Origin.Common.Networking.Client
             {
                 Logger.Error(e.ToString());
                 return false;
-            }
-        }
-
-        private void ConnectCallback(IAsyncResult ar)
-        {
-            try
-            {
-                // Retrieve the socket from the state object.
-                _socket = (Socket)ar.AsyncState;
-
-                // Complete the connection.
-                _socket.EndConnect(ar);
-
-                Logger.Info("Socket connected to {0}",
-                    _socket.RemoteEndPoint.ToString());
-
-                // Signal that the connection has been made.
-                connectDone.Set();
-
-                // Begin reading some data
-                _socket.BeginReceive(data, 0, data.Length, 0, new AsyncCallback(HandleRead), _socket);
-            }
-            catch (Exception e)
-            {
-                Logger.Error(e.ToString());
             }
         }
 

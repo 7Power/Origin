@@ -31,15 +31,11 @@ namespace Shaiya.Origin.Game.World.Pulse.Task.Impl
         {
             var localPlayer = _player;
 
-            var dbClient = new OriginClient(30820);
+            var dbClient = GameService.GetDbClient();
 
             var bldr = new PacketBuilder(Common.Database.Opcodes.CHECK_AVAILABLE_NAME);
 
             bldr.WriteBytes(Encoding.UTF8.GetBytes(_name), Encoding.UTF8.GetBytes(_name).Length);
-
-            IPAddress ipadress = IPAddress.Parse("127.0.0.1");
-
-            dbClient.Connect(ipadress, 30820);
 
             dbClient.Write(bldr.ToPacket(), (_data, _length) =>
             {

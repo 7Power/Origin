@@ -32,17 +32,13 @@ namespace Shaiya.Origin.Game.Server.Packets.Impl
             handshake.userId = BitConverter.ToInt32(data, 0);
             Array.Copy(data, 4, handshake.identityKeys, 0, 16);
 
-            var dbClient = new OriginClient(30820);
+            var dbClient = GameService.GetDbClient();
 
             var bldr = new PacketBuilder(Common.Database.Opcodes.USER_GAME_CONNECT);
 
             var array = Serializer.Serialize(handshake);
 
             bldr.WriteBytes(array, array.Length);
-
-            IPAddress ipadress = IPAddress.Parse("127.0.0.1");
-
-            dbClient.Connect(ipadress, 30820);
 
             dbClient.Write(bldr.ToPacket(), (_data, _length) =>
             {

@@ -19,14 +19,11 @@ namespace Shaiya.Origin.Login.Server.Packets.Impl
         {
             var identityKeys = session.GetIdentityKeys();
 
-            var dbClient = new OriginClient(30820);
+            var dbClient = LoginService.GetDbClient();
 
             var bldr = new PacketBuilder(Common.Database.Opcodes.DELETE_SESSION);
 
             bldr.WriteBytes(identityKeys, 16);
-
-            IPAddress ipadress = IPAddress.Parse("127.0.0.1");
-            dbClient.Connect(ipadress, 30820);
 
             dbClient.Write(bldr.ToPacket());
 

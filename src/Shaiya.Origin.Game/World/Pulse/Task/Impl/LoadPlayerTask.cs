@@ -26,7 +26,7 @@ namespace Shaiya.Origin.Game.World.Pulse.Task.Impl
 
         public override void Execute()
         {
-            var dbClient = new OriginClient(30820);
+            var dbClient = GameService.GetDbClient();
 
             var bldr = new PacketBuilder(Common.Database.Opcodes.GAME_USER_LOAD);
 
@@ -35,10 +35,6 @@ namespace Shaiya.Origin.Game.World.Pulse.Task.Impl
             bldr.WriteByte((byte)GameService.GetServerId());
 
             var localPlayer = _player;
-
-            IPAddress ipadress = IPAddress.Parse("127.0.0.1");
-
-            dbClient.Connect(ipadress, 30820);
 
             dbClient.Write(bldr.ToPacket(), (_data, _length) =>
             {
