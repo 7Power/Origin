@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Npgsql;
+﻿using Npgsql;
 using Shaiya.Origin.Common.Database.Structs.Game;
 using Shaiya.Origin.Common.Networking.Packets;
 using Shaiya.Origin.Common.Networking.Server.Session;
 using Shaiya.Origin.Common.Serializer;
 using Shaiya.Origin.Database.Connector;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Shaiya.Origin.Database.Server.Packets.Impl
 {
@@ -23,20 +23,22 @@ namespace Shaiya.Origin.Database.Server.Packets.Impl
         /// <returns></returns>
         public override bool Handle(ServerSession session, int length, int opcode, int requestId, byte[] data)
         {
-            var bldr = new PacketBuilder(opcode);
+            PacketBuilder bldr = new PacketBuilder(opcode);
 
             bldr.WriteInt(requestId);
+
+            List<Character> characters = new List<Character>();
 
             using (NpgsqlConnection connection = new DatabaseConnector().GetConnection("origin_gamedata"))
             {
                 int userId = BitConverter.ToInt32(data, 0);
                 byte serverId = data[4];
 
-                var rowCmd = new NpgsqlCommand("SELECT COUNT(*) FROM load_game_characters(@user_id, @server_id)", connection);
+                NpgsqlCommand rowCmd = new NpgsqlCommand("SELECT COUNT(*) FROM load_game_characters(@user_id, @server_id)", connection);
                 rowCmd.Parameters.AddWithValue("@user_id", userId);
                 rowCmd.Parameters.AddWithValue("@server_id", (int)serverId);
 
-                var cmd = new NpgsqlCommand("load_game_characters", connection);
+                NpgsqlCommand cmd = new NpgsqlCommand("load_game_characters", connection);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue(":user_id", userId);
                 cmd.Parameters.AddWithValue(":server_id", (int)serverId);
@@ -46,7 +48,7 @@ namespace Shaiya.Origin.Database.Server.Packets.Impl
                 int rowCount = Convert.ToInt32(rowCmd.ExecuteScalar());
 
                 // Execute the prepared statement
-                var reader = cmd.ExecuteReader();
+                NpgsqlDataReader reader = cmd.ExecuteReader();
 
                 bldr.WriteInt(rowCount);
 
@@ -62,24 +64,27 @@ namespace Shaiya.Origin.Database.Server.Packets.Impl
                     character.race = (byte)reader.GetInt32(4);
                     character.gameMode = (byte)reader.GetInt32(5);
                     character.face = (byte)reader.GetInt32(6);
-                    character.height = (byte)reader.GetInt32(7);
-                    character.profession = (byte)reader.GetInt32(8);
-                    character.gender = (byte)reader.GetInt32(9);
-                    character.map = reader.GetInt16(10);
-                    character.strength = reader.GetInt16(11);
-                    character.dexterity = reader.GetInt16(12);
-                    character.resistance = reader.GetInt16(13);
-                    character.intelligence = reader.GetInt16(14);
-                    character.wisdom = reader.GetInt16(15);
-                    character.luck = reader.GetInt16(16);
-                    character.isPendingDeletion = (byte)(reader.IsDBNull(17) ? 0 : 1);
+                    character.hair = (byte)reader.GetInt32(7);
+                    character.height = (byte)reader.GetInt32(8);
+                    character.profession = (byte)reader.GetInt32(9);
+                    character.sex = (byte)reader.GetInt32(10);
+                    character.map = reader.GetInt16(11);
+                    character.strength = reader.GetInt16(12);
+                    character.dexterity = reader.GetInt16(13);
+                    character.resistance = reader.GetInt16(14);
+                    character.intelligence = reader.GetInt16(15);
+                    character.wisdom = reader.GetInt16(16);
+                    character.luck = reader.GetInt16(17);
+                    character.isPendingDeletion = (byte)(reader.IsDBNull(18) ? 0 : 1);
 
-                    var array = Serializer.Serialize(character);
-
-                    bldr.WriteBytes(array, array.Length);
+                    characters.Add(character);
                 }
                 reader.Close();
             }
+
+            byte[] array = Serializer.Serialize(characters);
+
+            bldr.WriteBytes(array, array.Length);
 
             session.Write(bldr.ToPacket());
 

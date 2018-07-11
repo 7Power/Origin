@@ -3,9 +3,11 @@ using Shaiya.Origin.Common.Networking.Client;
 using Shaiya.Origin.Common.Networking.Packets;
 using Shaiya.Origin.Common.Serializer;
 using Shaiya.Origin.Game.Model.Entity.Player;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Runtime.InteropServices;
 
 namespace Shaiya.Origin.Game.World.Pulse.Task.Impl
 {
@@ -43,15 +45,14 @@ namespace Shaiya.Origin.Game.World.Pulse.Task.Impl
 
             dbClient.Write(bldr.ToPacket(), (_data, _length) =>
             {
-                int characterCount = (_data[0] & 0xFF);
+                int characterCount = BitConverter.ToInt32(_data);
+
+                List<Character> characters = Serializer.Deserialize<List<Character>>(_data.Skip(4).ToArray());
 
                 List<int> slots = new List<int>(new int[] { 0, 1, 2, 3, 4 });
 
-                for (int i = 0; i < characterCount; i++)
+                foreach (var character in characters)
                 {
-                    Character character = new Character();
-
-                    character = (Character)Serializer.Deserialize(_data.Skip(4).ToArray(), character);
 
                     slots.Remove(character.slot);
 
@@ -78,7 +79,7 @@ namespace Shaiya.Origin.Game.World.Pulse.Task.Impl
 
                     responseBldr.WriteByte(character.profession);
 
-                    responseBldr.WriteByte(character.gender);
+                    responseBldr.WriteByte(character.sex);
 
                     responseBldr.WriteShort(character.map);
 

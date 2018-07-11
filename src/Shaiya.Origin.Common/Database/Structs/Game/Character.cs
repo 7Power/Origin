@@ -37,7 +37,7 @@ namespace Shaiya.Origin.Common.Database.Structs.Game
         public byte profession;
 
         [ProtoMember(10)]
-        public byte gender;
+        public byte sex;
 
         [ProtoMember(11)]
         public short map;
