@@ -59,5 +59,10 @@
         /// Handles the creation of a character.
         /// </summary>
         public const int CREATE_CHARACTER = 9;
+
+        /// <summary>
+        /// Handles the request to delete a character.
+        /// </summary>
+        public const int DELETE_CHARACTER = 10;
     }
 }
