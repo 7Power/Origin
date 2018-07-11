@@ -71,7 +71,7 @@ namespace Shaiya.Origin.Login
                         {
                             Common.Database.Structs.Game.Server server = new Common.Database.Structs.Game.Server();
 
-                            server = (Common.Database.Structs.Game.Server)Serializer.Deserialize(data, server);
+                            server = Serializer.Deserialize<Common.Database.Structs.Game.Server>(data);
 
                             _servers.Add(server);
                         }

@@ -40,7 +40,7 @@ namespace Shaiya.Origin.Game.World.Pulse.Task.Impl
             {
                 GameLoadPlayerResponse response = new GameLoadPlayerResponse();
 
-                response = (GameLoadPlayerResponse)Serializer.Deserialize(_data, response);
+                response = Serializer.Deserialize<GameLoadPlayerResponse>(_data);
 
                 localPlayer.SetFaction(response.faction);
                 localPlayer.SetMaxGameMode(response.maxGameMode);

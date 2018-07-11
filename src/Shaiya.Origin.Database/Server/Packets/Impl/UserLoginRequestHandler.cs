@@ -15,7 +15,7 @@ namespace Shaiya.Origin.Database.Server.Packets.Impl
         {
             LoginRequest loginRequest = new LoginRequest();
 
-            loginRequest = (LoginRequest)Serializer.Deserialize(data, loginRequest);
+            loginRequest = Serializer.Deserialize<LoginRequest>(data);
 
             // The username, password and ip address, as strings
             string username = Encoding.UTF8.GetString(loginRequest.username).TrimEnd('\0');

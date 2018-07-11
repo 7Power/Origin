@@ -1,11 +1,9 @@
 ﻿using Shaiya.Origin.Common.Database.Structs.Login;
-using Shaiya.Origin.Common.Networking.Client;
 using Shaiya.Origin.Common.Networking.Packets;
 using Shaiya.Origin.Common.Networking.Server.Session;
 using Shaiya.Origin.Common.Serializer;
 using System;
 using System.Linq;
-using System.Net;
 using System.Text;
 
 namespace Shaiya.Origin.Login.Server.Packets.Impl
@@ -57,7 +55,7 @@ namespace Shaiya.Origin.Login.Server.Packets.Impl
             {
                 LoginResponse loginResponse = new LoginResponse();
 
-                loginResponse = (LoginResponse)Serializer.Deserialize(_data, loginResponse);
+                loginResponse = Serializer.Deserialize<LoginResponse>(_data);
 
                 var builder = new PacketBuilder(Common.Packets.Opcodes.LOGIN_REQUEST);
 

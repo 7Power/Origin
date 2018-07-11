@@ -13,11 +13,11 @@ namespace Shaiya.Origin.Common.Serializer
             }
         }
 
-        public static object Deserialize(byte[] arrBytes, object obj)
+        public static T Deserialize<T>(byte[] arrBytes)
         {
             using (var ms = new MemoryStream(arrBytes))
             {
-                return ProtoBuf.Serializer.Deserialize(obj.GetType(), ms);
+                return ProtoBuf.Serializer.Deserialize<T>(ms);
             }
         }
     }

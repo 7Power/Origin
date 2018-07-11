@@ -23,7 +23,7 @@ namespace Shaiya.Origin.Database.Server.Packets.Impl
         {
             GameHandshakeRequest handshake = new GameHandshakeRequest();
 
-            handshake = (GameHandshakeRequest)Serializer.Deserialize(data, handshake);
+            handshake = Serializer.Deserialize<GameHandshakeRequest>(data);
 
             var bldr = new PacketBuilder(opcode);
 
