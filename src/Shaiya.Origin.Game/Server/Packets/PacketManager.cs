@@ -18,6 +18,7 @@ namespace Shaiya.Origin.Game.Server.Packets
             _handlers[Opcodes.GAME_HANDSHAKE] = new GameHandshakePacketHandler();
             _handlers[Opcodes.ACCOUNT_FACTION] = new SelectFactionPacketHandler();
             _handlers[Opcodes.AVAILABLE_CHARACTER_NAME] = new CheckAvailableNamePacketHandler();
+            _handlers[Opcodes.CREATE_CHARACTER] = new CreateCharacterPacketHandler();
         }
 
         /// <summary>

@@ -41,18 +41,23 @@
         public const int GAME_USER_LOAD = 5;
 
         /// <summary>
+        /// Handles the selection of a faction for the player
+        /// </summary>
+        public const int SELECT_FACTION = 6;
+
+        /// <summary>
         /// Gets the data displayed by the character list for a player.
         /// </summary>
-        public const int GET_CHARACTER_LIST_DATA = 6;
+        public const int GET_CHARACTER_LIST_DATA = 7;
 
         /// <summary>
         /// Checks if a character name is available.
         /// </summary>
-        public const int CHECK_AVAILABLE_NAME = 7;
+        public const int CHECK_AVAILABLE_NAME = 8;
 
         /// <summary>
-        /// Handles the selection of a faction for the player
+        /// Handles the creation of a character.
         /// </summary>
-        public const int SELECT_FACTION = 8;
+        public const int CREATE_CHARACTER = 9;
     }
 }

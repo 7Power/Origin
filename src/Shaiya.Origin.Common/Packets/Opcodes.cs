@@ -55,6 +55,11 @@
         public const int CHARACTER_LIST = 0x0101;
 
         /// <summary>
+        /// Contains information about a character creation request from the current game account.
+        /// </summary>
+        public const int CREATE_CHARACTER = 0x0102;
+
+        /// <summary>
         /// Contains the current faction of the game account (either Light, Fury, or undecided).
         /// </summary>
         public const int ACCOUNT_FACTION = 0x0109;
