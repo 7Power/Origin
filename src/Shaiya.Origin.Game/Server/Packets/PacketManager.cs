@@ -20,6 +20,7 @@ namespace Shaiya.Origin.Game.Server.Packets
             _handlers[Opcodes.AVAILABLE_CHARACTER_NAME] = new CheckAvailableNamePacketHandler();
             _handlers[Opcodes.CREATE_CHARACTER] = new CreateCharacterPacketHandler();
             _handlers[Opcodes.DELETE_CHARACTER] = new DeleteCharacterPacketHandler();
+            _handlers[Opcodes.CHARACTER_SELECTION] = new SelectCharacterPacketHandler();
         }
 
         /// <summary>

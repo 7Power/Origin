@@ -25,6 +25,7 @@ namespace Shaiya.Origin.Database.Server.Packets
             _handlers[Opcodes.SELECT_FACTION] = new SelectFactionRequestHandler();
             _handlers[Opcodes.CREATE_CHARACTER] = new CreateCharacterRequestHandler();
             _handlers[Opcodes.DELETE_CHARACTER] = new DeleteCharacterRequestHandler();
+            _handlers[Opcodes.LOAD_GAME_CHARACTER] = new LoadGameCharacterDataRequestHandler();
 
         }
 

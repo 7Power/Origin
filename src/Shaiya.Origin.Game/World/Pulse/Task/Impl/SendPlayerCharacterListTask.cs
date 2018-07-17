@@ -47,7 +47,7 @@ namespace Shaiya.Origin.Game.World.Pulse.Task.Impl
             {
                 int characterCount = BitConverter.ToInt32(_data);
 
-                List<Character> characters = Serializer.Deserialize<List<Character>>(_data.Skip(4).ToArray());
+                List<Common.Database.Structs.Game.Character> characters = Serializer.Deserialize<List<Common.Database.Structs.Game.Character>>(_data.Skip(4).ToArray());
 
                 List<int> slots = new List<int>(new int[] { 0, 1, 2, 3, 4 });
 

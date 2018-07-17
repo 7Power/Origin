@@ -64,5 +64,10 @@
         /// Handles the request to delete a character.
         /// </summary>
         public const int DELETE_CHARACTER = 10;
+
+        /// <summary>
+        /// Handles the loading of a game character's data
+        /// </summary>
+        public const int LOAD_GAME_CHARACTER = 12;
     }
 }

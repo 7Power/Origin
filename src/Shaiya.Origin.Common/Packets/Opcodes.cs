@@ -65,6 +65,11 @@
         public const int DELETE_CHARACTER = 0x0103;
 
         /// <summary>
+        /// Represents a request to enter the game world with a specific character.
+        /// </summary>
+        public const int CHARACTER_SELECTION = 0x0104;
+
+        /// <summary>
         /// Contains the current faction of the game account (either Light, Fury, or undecided).
         /// </summary>
         public const int ACCOUNT_FACTION = 0x0109;
