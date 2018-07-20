@@ -43,7 +43,7 @@ namespace Shaiya.Origin.Game.World.Pulse.Task.Impl
 
             bldr.WriteByte((byte)GameService.GetServerId());
 
-            bldr.WriteInt(localPlayer.GetIndex());
+            bldr.WriteInt(localPlayer.index);
 
             bldr.WriteBytes(requestArray, requestArray.Length);
 

@@ -40,7 +40,7 @@ namespace Shaiya.Origin.Game.World.Pulse.Task.Impl
 
             PacketBuilder bldr = new PacketBuilder(Common.Database.Opcodes.LOAD_GAME_CHARACTER);
 
-            bldr.WriteInt(_player.GetIndex());
+            bldr.WriteInt(_player.index);
             bldr.WriteInt(_characterId);
             bldr.WriteInt(GameService.GetServerId());
 

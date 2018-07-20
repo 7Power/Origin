@@ -24,8 +24,8 @@ namespace Shaiya.Origin.Game.World.Pulse.Task.Impl
         {
             var bldr = new PacketBuilder(Common.Packets.Opcodes.ACCOUNT_FACTION);
 
-            bldr.WriteByte((byte)_player.GetFaction());
-            bldr.WriteByte((byte)_player.GetMaxGameMode());
+            bldr.WriteByte((byte)_player.faction);
+            bldr.WriteByte((byte)_player.maxGameMode);
 
             _player.Write(bldr.ToPacket());
         }

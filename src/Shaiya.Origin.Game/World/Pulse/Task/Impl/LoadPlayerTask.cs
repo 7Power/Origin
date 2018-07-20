@@ -30,7 +30,7 @@ namespace Shaiya.Origin.Game.World.Pulse.Task.Impl
 
             var bldr = new PacketBuilder(Common.Database.Opcodes.GAME_USER_LOAD);
 
-            bldr.WriteInt(_player.GetIndex());
+            bldr.WriteInt(_player.index);
 
             bldr.WriteByte((byte)GameService.GetServerId());
 
@@ -42,10 +42,10 @@ namespace Shaiya.Origin.Game.World.Pulse.Task.Impl
 
                 response = Serializer.Deserialize<GameLoadPlayerResponse>(_data);
 
-                localPlayer.SetFaction(response.faction);
-                localPlayer.SetMaxGameMode(response.maxGameMode);
-                localPlayer.SetPrivilegeLevel(response.privilegeLevel);
-                localPlayer.SetPoints(response.points);
+                localPlayer.faction = response.faction;
+                localPlayer.maxGameMode = response.maxGameMode;
+                localPlayer.privilegeLevel = response.privilegeLevel;
+                localPlayer.points = response.points;
 
                 GameService.PushTask(new SendPlayerFactionTask(localPlayer));
                 GameService.PushTask(new SendPlayerCharacterListTask(localPlayer));

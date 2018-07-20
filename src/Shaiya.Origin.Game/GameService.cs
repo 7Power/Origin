@@ -61,7 +61,7 @@ namespace Shaiya.Origin.Game
         public static void LoadPlayer(Player player)
         {
             // Add the player instance
-            _players.Add(player.GetIndex(), player);
+            _players.Add(player.index, player);
 
             _pulseHandler.Offer(new World.Pulse.Task.Impl.LoadPlayerTask(player));
         }

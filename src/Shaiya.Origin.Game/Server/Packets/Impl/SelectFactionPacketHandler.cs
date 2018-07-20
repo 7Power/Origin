@@ -37,7 +37,7 @@ namespace Shaiya.Origin.Game.Server.Packets.Impl
 
             var bldr = new PacketBuilder(Common.Database.Opcodes.SELECT_FACTION);
 
-            bldr.WriteInt(player.GetIndex());
+            bldr.WriteInt(player.index);
 
             bldr.WriteByte(faction);
 
@@ -45,7 +45,7 @@ namespace Shaiya.Origin.Game.Server.Packets.Impl
 
             dbClient.Write(bldr.ToPacket());
 
-            player.SetFaction(faction);
+            player.faction = faction;
 
             return true;
         }
