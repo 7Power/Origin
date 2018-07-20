@@ -70,6 +70,12 @@
         public const int CHARACTER_SELECTION = 0x0104;
 
         /// <summary>
+        /// Contains specific details about the game character, such as the max HP, Gold, Stat/Skill Points,
+        /// Kills/Deaths, and guild name.
+        /// </summary>
+        public const int CHARACTER_DETAILS = 0x0105;
+
+        /// <summary>
         /// Contains the current faction of the game account (either Light, Fury, or undecided).
         /// </summary>
         public const int ACCOUNT_FACTION = 0x0109;
