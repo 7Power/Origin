@@ -49,55 +49,24 @@ namespace Shaiya.Origin.Common.Logging
         /// <summary>
         /// Logs an error message to both the console, and the log file specified.
         /// </summary>
-        /// <param name="message">The message to write</param>
+        /// <param name="message">The message</param>
+        /// <param name="args">The arguments to pass in, if any</param>
         /// <returns></returns>
-        public static void Error(string message)
+        public static void Error(string message, params object[] args)
         {
             lock (_syncObject)
             {
-                // Create a logger instance
-                Logger logger = new Logger();
-
                 StringBuilder stringBuilder = new StringBuilder("[ERROR]");
 
                 stringBuilder.AppendFormat("[{0}] ", DateTime.Now.ToString("HH:mm:ss tt", CultureInfo.InvariantCulture));
 
-                stringBuilder.Append(message);
+                stringBuilder.AppendFormat(message, args);
 
                 Console.WriteLine(stringBuilder.ToString());
 
                 using (_errorFile = new StreamWriter(_logDirectory + "error.log", true))
                 {
-                    _errorFile.WriteLine(message);
-                    _errorFile.Close();
-                }
-            }
-        }
-
-        /// <summary>
-        /// Logs an error message to both the console, and the log file specified.
-        /// </summary>
-        /// <param name="format">The specified format</param>
-        /// <param name="arg">The object to pass in</param>
-        /// <returns></returns>
-        public static void Error(string format, params object[] arg)
-        {
-            lock (_syncObject)
-            {
-                // Create a logger instance
-                Logger logger = new Logger();
-
-                StringBuilder stringBuilder = new StringBuilder("[ERROR]");
-
-                stringBuilder.AppendFormat("[{0}] ", DateTime.Now.ToString("HH:mm:ss tt", CultureInfo.InvariantCulture));
-
-                stringBuilder.AppendFormat(format, arg);
-
-                Console.WriteLine(stringBuilder.ToString());
-
-                using (_errorFile = new StreamWriter(_logDirectory + "error.log", true))
-                {
-                    _errorFile.WriteLine(format, arg);
+                    _errorFile.WriteLine(message, args);
                     _errorFile.Close();
                 }
             }
@@ -106,55 +75,24 @@ namespace Shaiya.Origin.Common.Logging
         /// <summary>
         /// Logs an information message to both the console, and the log file specified.
         /// </summary>
-        /// <param name="message">The message to write</param>
+        /// <param name="message">The message</param>
+        /// <param name="arg">The arguments to pass in, if any</param>
         /// <returns></returns>
-        public static void Info(string message)
+        public static void Info(string message, params object[] args)
         {
             lock (_syncObject)
             {
-                // Create a logger instance
-                Logger logger = new Logger();
-
                 StringBuilder stringBuilder = new StringBuilder("[INFO]");
 
                 stringBuilder.AppendFormat("[{0}] ", DateTime.Now.ToString("HH:mm:ss tt", CultureInfo.InvariantCulture));
 
-                stringBuilder.Append(message);
+                stringBuilder.AppendFormat(message, args);
 
                 Console.WriteLine(stringBuilder.ToString());
 
                 using (_infoFile = new StreamWriter(_logDirectory + "info.log", true))
                 {
-                    _infoFile.WriteLine(message);
-                    _infoFile.Close();
-                }
-            }
-        }
-
-        /// <summary>
-        /// Logs an information message to both the console, and the log file specified.
-        /// </summary>
-        /// <param name="format">The specified format</param>
-        /// <param name="arg">The object to pass in</param>
-        /// <returns></returns>
-        public static void Info(string format, params object[] arg)
-        {
-            lock (_syncObject)
-            {
-                // Create a logger instance
-                Logger logger = new Logger();
-
-                StringBuilder stringBuilder = new StringBuilder("[INFO]");
-
-                stringBuilder.AppendFormat("[{0}] ", DateTime.Now.ToString("HH:mm:ss tt", CultureInfo.InvariantCulture));
-
-                stringBuilder.AppendFormat(format, arg);
-
-                Console.WriteLine(stringBuilder.ToString());
-
-                using (_infoFile = new StreamWriter(_logDirectory + "info.log", true))
-                {
-                    _infoFile.WriteLine(format, arg);
+                    _infoFile.WriteLine(message, args);
                     _infoFile.Close();
                 }
             }
