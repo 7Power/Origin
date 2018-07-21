@@ -2,7 +2,7 @@
 using Shaiya.Origin.Common.Logging;
 using Shaiya.Origin.Common.Networking.Client;
 using Shaiya.Origin.Common.Service;
-using Shaiya.Origin.Game.Server;
+using Shaiya.Origin.Game.IO;
 using Shaiya.Origin.Game.World.Pulse;
 using Shaiya.Origin.Game.World.Pulse.Task;
 using System.Net;

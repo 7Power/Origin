@@ -1,7 +1,7 @@
 ﻿using Shaiya.Origin.Common.Networking.Packets;
 using Shaiya.Origin.Common.Serializer;
 using Shaiya.Origin.Game.Model.Entity.Player;
-using Shaiya.Origin.Game.Server.Packets.Outgoing;
+using Shaiya.Origin.Game.IO.Packets.Outgoing;
 using System.Linq;
 using System.Text;
 

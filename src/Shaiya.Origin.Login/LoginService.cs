@@ -4,7 +4,7 @@ using Shaiya.Origin.Common.Networking.Client;
 using Shaiya.Origin.Common.Networking.Packets;
 using Shaiya.Origin.Common.Serializer;
 using Shaiya.Origin.Common.Service;
-using Shaiya.Origin.Login.Server;
+using Shaiya.Origin.Login.IO;
 using System;
 using System.Collections.Generic;
 using System.Net;

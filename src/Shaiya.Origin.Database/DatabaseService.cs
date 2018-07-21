@@ -2,7 +2,7 @@
 using Shaiya.Origin.Common.Logging;
 using Shaiya.Origin.Common.Service;
 using Shaiya.Origin.Database.Connector;
-using Shaiya.Origin.Database.Server;
+using Shaiya.Origin.Database.IO;
 
 namespace Shaiya.Origin.Database
 {
