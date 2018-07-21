@@ -84,5 +84,10 @@
         /// Checks if a given character name is available
         /// </summary>
         public const int AVAILABLE_CHARACTER_NAME = 0x0119;
+
+        /// <summary>
+        /// Contains the amount of "Aeria Points" the account possesses.
+        /// </summary>
+        public const int ACCOUNT_AERIA_POINTS = 0x2601;
     }
 }

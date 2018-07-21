@@ -66,5 +66,17 @@ namespace Shaiya.Origin.Game.IO.Packets.Outgoing
 
             character.Write(bldr.ToPacket());
         }
+
+        /// <summary>
+        /// Sends the player's current Aeria Points.
+        /// </summary>
+        /// <param name="player">The player instance</param>
+        public static void SendAp(Player player)
+        {
+            var bldr = new PacketBuilder(Common.Packets.Opcodes.ACCOUNT_AERIA_POINTS);
+
+            bldr.WriteInt(player.points);
+            player.Write(bldr.ToPacket());
+        }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Shaiya.Origin.Common.Networking.Packets;
 using Shaiya.Origin.Common.Serializer;
-using Shaiya.Origin.Game.Model.Entity.Player;
 using Shaiya.Origin.Game.IO.Packets.Outgoing;
+using Shaiya.Origin.Game.Model.Entity.Player;
 using System.Linq;
 using System.Text;
 
@@ -108,6 +108,7 @@ namespace Shaiya.Origin.Game.World.Pulse.Task.Impl
 
                     // TODO: Start loading character's details, skills, items, buffs, bars etc...
                     PacketRepository.SendCharacterData(character);
+                    PacketRepository.SendAp(character.GetPlayer());
                 }
             });
         }
