@@ -2,12 +2,14 @@
 using Shaiya.Origin.Common.Logging;
 using Shaiya.Origin.Common.Networking.Client;
 using Shaiya.Origin.Common.Service;
+using Shaiya.Origin.Game.Command;
 using Shaiya.Origin.Game.IO;
+using Shaiya.Origin.Game.Model.Entity.Player;
+using Shaiya.Origin.Game.Scripting;
 using Shaiya.Origin.Game.World.Pulse;
 using Shaiya.Origin.Game.World.Pulse.Task;
-using System.Net;
 using System.Collections.Generic;
-using Shaiya.Origin.Game.Model.Entity.Player;
+using System.Net;
 
 namespace Shaiya.Origin.Game
 {
@@ -21,9 +23,14 @@ namespace Shaiya.Origin.Game
         private static GamePulseHandler _pulseHandler;
         private static int _serverId;
         private static Dictionary<int, Player> _players = new Dictionary<int, Player>();
+        private static CommandDispatcher _commandDispatcher = new CommandDispatcher();
 
         public override void Start()
         {
+            Logger.Info("Initialising scripting environment...");
+
+            ScriptingEnvironment.Init();
+
             Logger.Info("Initialising game world... ");
 
             _serverId = GetValueOrDefault("GameServerId", 1).Value<int>();
@@ -75,6 +82,7 @@ namespace Shaiya.Origin.Game
         {
             return _players[index];
         }
+
         public static int GetServerId()
         {
             return _serverId;
@@ -88,6 +96,11 @@ namespace Shaiya.Origin.Game
         public static OriginClient GetDbClient()
         {
             return _dbClient;
+        }
+
+        public static CommandDispatcher GetCommandDispatcher()
+        {
+            return _commandDispatcher;
         }
     }
 }
