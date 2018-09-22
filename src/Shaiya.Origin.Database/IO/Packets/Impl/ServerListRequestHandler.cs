@@ -26,8 +26,8 @@ namespace Shaiya.Origin.Database.IO.Packets.Impl
 
             using (NpgsqlConnection connection = new DatabaseConnector().GetConnection("origin_gamedata"))
             {
-                var rowCmd = new NpgsqlCommand("SELECT COUNT(*) FROM world_status", connection);
-                var cmd = new NpgsqlCommand("SELECT * FROM world_status", connection);
+                var rowCmd = new NpgsqlCommand("SELECT COUNT(*) FROM worlds", connection);
+                var cmd = new NpgsqlCommand("SELECT * FROM worlds", connection);
 
                 connection.Open();
 
