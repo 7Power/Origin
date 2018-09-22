@@ -27,14 +27,20 @@ namespace Shaiya.Origin.Common.Logging
             // Set the log directory
             _logDirectory = logDirectory;
 
-            // Write a few newlines to the log files
-            using (_errorFile = new StreamWriter(File.Open(_logDirectory + "error.log", FileMode.Create)))
+            // Create the log directory if it doesn't exist
+            if (!Directory.Exists(_logDirectory))
+            {
+                Directory.CreateDirectory(_logDirectory);
+            }
+
+            // Create the log files if they don't exist and write a few newlines to them
+            using (_errorFile = new StreamWriter(File.Exists(_logDirectory + "error.log") ? File.Open(_logDirectory + "error.log", FileMode.Create) : File.Open(_logDirectory + "error.log", FileMode.CreateNew)))
             {
                 _errorFile.WriteLine("#### Initialising ###");
                 _errorFile.WriteLine(Environment.NewLine);
             }
 
-            using (_infoFile = new StreamWriter(File.Open(_logDirectory + "info.log", FileMode.Create)))
+            using (_infoFile = new StreamWriter(File.Exists(_logDirectory + "info.log") ? File.Open(_logDirectory + "info.log", FileMode.Create) : File.Open(_logDirectory + "info.log", FileMode.CreateNew)))
             {
                 _infoFile.WriteLine("#### Initialising ###");
                 _infoFile.WriteLine(Environment.NewLine);
