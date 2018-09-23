@@ -46,11 +46,11 @@ namespace Shaiya.Origin.Database.IO.Packets.Impl
                 {
                     LoginResponse loginResponse = new LoginResponse();
 
-                    int userId = reader.GetInt32(0);
-                    int status = reader.GetInt16(1);
-                    int privilegeLevel = reader.GetInt16(2);
+                    int userId = reader.IsDBNull(0) ? 0 : reader.GetInt32(0);
+                    int status = reader.IsDBNull(1) ? 1 : reader.GetInt16(1);
+                    int privilegeLevel = reader.IsDBNull(2) ? 0 : reader.GetInt16(2);
                     byte[] identityKeys = new byte[16];
-                    var bytesRead = reader.GetBytes(3, 0, identityKeys, 0, 16);
+                    var bytesRead = reader.IsDBNull(3) ? 0 : reader.GetBytes(3, 0, identityKeys, 0, 16); 
 
                     loginResponse.userId = userId;
                     loginResponse.status = status;
