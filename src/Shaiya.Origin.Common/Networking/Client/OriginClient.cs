@@ -208,14 +208,14 @@ namespace Shaiya.Origin.Common.Networking.Client
 
                 // Complete sending the data to the remote device.
                 int bytesSent = _socket.EndSend(ar);
-                Console.WriteLine("Sent {0} bytes to server.", bytesSent - 4);
+                Logger.Info("Sent {0} bytes to server.", bytesSent - 4);
 
                 // Signal that all bytes have been sent.
                 sendDone.Set();
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
+                Logger.Error(e.ToString());
             }
         }
 
