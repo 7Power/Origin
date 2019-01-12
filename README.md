@@ -24,6 +24,14 @@ The project is split into 4 components:
 
 This project is designed to be fully scalable, so all these servers can be run independently. This means it's very easy to add multiple game servers using the same database/login server.
 
+## Setup guide
+* Install the Original Shaiya
+* Download the modified client
+(https://mega.nz/#!3TZXBSKC!ZhCaLA3xvruxgpjrjaq0-cAT1wUuzvWPCysAUBmLxLM)
+* Change `gsConfig.cfg` to point to the correct IP address
+* Clone the git repository, build and run
+* Note: The database tables are still being worked on so you'll have to make your own for the time being
+
 ## Copyright
 License: MIT
 Read file: [LICENSE](LICENSE.txt)
